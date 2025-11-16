@@ -38,7 +38,8 @@ class UserController extends Controller
 
 
         $perPage = $request->input('per_page', 10);
-        return $query->paginate($perPage);
+
+        return response()->json($query->paginate($perPage), 200);
     }
 
     // POST /api/admin/users
