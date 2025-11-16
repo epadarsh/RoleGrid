@@ -10,7 +10,7 @@ trait GeneratesReferralCode
     protected static function generateUniqueReferralCode()
     {
         do {
-            $code = Str::upper(Str::random(8)); // 8-character code
+            $code = Str::upper(Str::random(8));
         } while (User::where('referral_code', $code)->exists());
 
         return $code;
