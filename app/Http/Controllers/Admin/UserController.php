@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,10 +11,34 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
-        // Paginated list with referrer name loaded
-        return User::with('referrer:id,name')->paginate(10);
+
+        $query = User::query();
+        // 1. Searching
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $searchTerm . '%');
+        }
+        // 2. Sorting
+        $sortBy = $request->input('sort_by', 'id');
+        $sortDir = $request->input('sort_dir', 'asc');
+
+        $allowedSorts = ['name', 'email', 'referral_count'];
+        if (!in_array($sortBy, $allowedSorts)) {
+            $sortBy = 'id';
+        }
+        if (!in_array(strtolower($sortDir), ['asc', 'desc'])) {
+            $sortDir = 'asc';
+        }
+
+        $query->orderBy($sortBy, $sortDir)->with('referrer:id,name');
+
+
+        $perPage = $request->input('per_page', 10);
+        return $query->paginate($perPage);
     }
 
     // POST /api/admin/users

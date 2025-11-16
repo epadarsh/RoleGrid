@@ -13,18 +13,15 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        // 1. Searching
         if ($request->filled('search')) {
             $searchTerm = $request->input('search');
             $query->where('title', 'like', '%' . $searchTerm . '%')
                 ->orWhere('description', 'like', '%' . $searchTerm . '%');
         }
 
-        // 2. Sorting
         $sortBy = $request->input('sort_by', 'id');
         $sortDir = $request->input('sort_dir', 'asc');
 
-        // Basic validation for sort columns/direction
         $allowedSorts = ['id', 'title', 'price', 'stock', 'created_at'];
         if (!in_array($sortBy, $allowedSorts)) {
             $sortBy = 'id';
@@ -35,7 +32,6 @@ class ProductController extends Controller
 
         $query->orderBy($sortBy, $sortDir);
 
-        // 3. Pagination (using per_page if provided, defaults to 10)
         $perPage = $request->input('per_page', 10);
 
         return $query->paginate($perPage);
