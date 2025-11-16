@@ -1,4 +1,4 @@
-Referral System & Role-Based Admin Management
+## Laravel Backend: Referral System & Role-Based Admin Management
 
 This project implements a comprehensive full-stack application featuring a referral tracking system and a role-based administration panel. The backend is built using Laravel (API-only), and the frontend is a modern React application utilizing Redux for state management.
 
@@ -53,31 +53,29 @@ SANCTUM_STATEFUL_DOMAINS=localhost:5173
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=referral_system
-DB_USERNAME=root
+DB_DATABASE=role_grid
+DB_USERNAME=role_grid
 DB_PASSWORD=
 
 Generate the application key:
 
 php artisan key:generate
 
-Step 3: Database Migration and Seeding
+## Step 3: Database Migration and Seeding
 
 Run the migrations to create the users and products tables, and run the seeders to populate the database with the default Admin user, normal users, and products.
 
 php artisan migrate:fresh --seed
 
-Note: This command runs the UserSeeder.php, which handles referral code generation, role assignment, and referral count updates via Model Observers.
-
-Step 4: Run the Backend
+## Step 4: Run the Backend
 
 Start the Laravel development server. This should run on port 8000 by default.
 
 php artisan serve
 
-Step 5: Run the Frontend (React Application)
+## Step 5: Run the Frontend (React Application)
 
-Navigate into the frontend directory (if it's in a subfolder, otherwise stay in the root).
+Navigate into the frontend directory.
 
 Install Node dependencies:
 
@@ -91,39 +89,37 @@ npm run dev # (Vite)
 
 npm start # (Create React App)
 
-The application should now be accessible in your browser (e.g., http://localhost:5173).
+## The application should now be accessible in your browser (e.g., http://localhost:5173).
 
-🔑 Test Credentials
+#### Test Credentials
 
-Use these credentials to log in immediately and test the Admin features.
+Use these accounts (created by the backend seeder) for immediate testing:
 
-Role
+### Admin user
 
-Email
+email - admin@rolegrid.com
+password - Admin@12
 
-Password
+### Normal user 1
 
-Access
+email - deric@rolegrid.com
+password - Deric@12
 
-Admin
+### Normal user 2
 
-admin@app.com
+email - embape@rolegrid.com
+password - Embape@12
 
-password
+### Normal user 3
 
-Admin Panel, User/Product CRUD
+email - david@rolegrid.com
+password - David@12
 
-User (Normal)
-
-user.a@app.com
-
-password
-
-User Dashboard, Internal Products
+---
 
 🛠️ Key Technical Decisions
 
-1. Stack Justification
+1. Backen- Laravel
 
 Laravel (API-only): Chosen for its robustness, Eloquent ORM capabilities (for database interaction), and built-in features like Sanctum for secure API authentication. The API-only configuration ensures a clean separation of concerns from the frontend.
 
