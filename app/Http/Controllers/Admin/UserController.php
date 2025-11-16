@@ -85,8 +85,6 @@ class UserController extends Controller
     // DELETE /api/admin/users/{user}
     public function destroy(User $user)
     {
-        // Handle deletion carefully (e.g., reassign referrals or nullify)
-        // For simplicity, we just delete. The FK constraint handles referrer_id set to null.
         $user->delete();
 
         return response()->json(['message' => 'User deleted successfully.'], 204);

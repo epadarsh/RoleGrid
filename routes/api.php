@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::middleware('admin')->prefix('admin')->group(function () {
+        Route::get('/status', [App\Http\Controllers\Admin\AdminStatsController::class, 'index']);
         // User Management (Admin CRUD)
         Route::apiResource('users', AdminUserController::class)->only(['index', 'store', 'update', 'destroy']);
         // Product Management (Internal CRUD)
